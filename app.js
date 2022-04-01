@@ -6,7 +6,7 @@ const port = process.env.PORT || 4000;
 const cors = require('cors');
 app.use(cors())
 
-const AuthController = require('./controller/authController');
+const AuthController = require('./controller/authController.js');
 app.use('/api/auth', AuthController);
 // app.get('/fake',(req,res)=>res.status(200).json({ msg : 'worked'}));
 
