@@ -16,7 +16,7 @@ router.get('/user', async (req,res)=>{
     console.log('request arrived')
     try{
         const User= await User.find({})
-        res.send(User)
+        res.json({User})
     }catch(e){
         console.log(e)
     }   
@@ -38,10 +38,10 @@ router.post('/register', async (req,res)=>{
             }
         )
         console.log(user)
-        res.status(200).json({register:true})
+        res.status(200).json({register:true,msg:"registration successful"})
 
     }catch{
-        res.status(500).json({msg:'try with another email id ......'})
+        res.status(500).json({msg:'try again pls ......'})
 
     }
 })
@@ -56,7 +56,7 @@ router.post('/login', async (req,res)=>{
         // console.log(await bcrypt.compare(req.body.password, user.password))
         if (compare){
             let token = jwt.sign({id:user._id,email:user.email},process.env.secret_token,{expiresIn:86400}) //24hr
-            return res.status(200).json({auth:true,token:token})
+            return res.status(200).json({auth:true,token:token,msg:"login successfull"})
             // res.status(200).send('user credential right ')
         }
         
@@ -64,7 +64,7 @@ router.post('/login', async (req,res)=>{
         
     }
     catch{
-        res.send(500).json({msg:'something went wrong'})
+        res.status(500).json({msg:'something went wrong'})
     }
 })
 
